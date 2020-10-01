@@ -8,7 +8,7 @@ namespace CommandAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CommandController : ControllerBase
+    public class CommandsController : ControllerBase
     {
         [HttpGet]
         public ActionResult<IEnumerable<string>> Get()
