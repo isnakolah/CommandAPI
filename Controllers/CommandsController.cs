@@ -1,5 +1,6 @@
 ﻿using CommandAPI.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -40,12 +41,28 @@ namespace CommandsAPI.Controllers
         }
 
         // POST: api/commands
+        [HttpPost]
         public ActionResult<Command> PostCommandItem(Command command)
         {
             _context.CommandItems.Add(command);
             _context.SaveChanges();
 
             return CreatedAtAction("GetCommandItem", new Command { Id = command.Id }, command);
+        }
+
+        // PUT: api/commands/<id>
+        [HttpPut("{id}")]
+        public ActionResult PutCommandItem(int id, Command command)
+        {
+            if (id != command.Id)
+            {
+                return BadRequest();
+            }
+
+            _context.Entry(command).State = EntityState.Modified;
+            _context.SaveChanges();
+
+            return NoContent();
         }
     }
 }
